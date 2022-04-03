@@ -21,10 +21,10 @@ def call (repo) {
                 }
             }
             stage('Package') {
-                when {
-//                     expression { env.GIT_BRANCH == 'main' }
-                    branch 'main'
-                }
+//                 when {
+//                      expression { env.GIT_BRANCH == 'main' }
+//                     branch 'main'
+//                 }
                 steps {
                     withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
                     sh "docker login -u '<username>' -p '$TOKEN' docker.io"
