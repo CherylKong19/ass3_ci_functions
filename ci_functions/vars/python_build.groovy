@@ -40,7 +40,7 @@ def call (repo) {
                 steps {
                     dir("lab8/deployment") {
                         withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
-                        sh "docker login -u '<username>' -p '$TOKEN' docker.io"
+                        sh "docker login -u cherylk19 -p '$TOKEN' docker.io"
                         sh "docker-compose stop ${repo}"
                         sh "docker prune"
                         sh "docker pull cherylk19/${repo}:latest"
