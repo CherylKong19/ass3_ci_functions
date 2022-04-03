@@ -27,7 +27,7 @@ def call (repo) {
                 steps {
                     withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
                     sh "docker login -u '<username>' -p '$TOKEN' docker.io"
-                    sh "docker build -t ${repo}:latest ."
+                    sh "docker build -t cherylk19/${repo}:latest ."
                     sh "docker push cherylk19/${repo}:latest"
                     }
                 }
