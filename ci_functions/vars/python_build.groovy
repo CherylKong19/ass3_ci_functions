@@ -22,7 +22,8 @@ def call (repo) {
             }
             stage('Package') {
                 when {
-                    expression { env.GIT_BRANCH == 'main' }
+//                     expression { env.GIT_BRANCH == 'main' }
+                    branch 'main'
                 }
                 steps {
                     withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
