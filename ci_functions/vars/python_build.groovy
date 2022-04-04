@@ -10,11 +10,14 @@ def call (repo) {
                     sh "pip install -r requirements.txt"
                 }
             }
-            // stage('Python Lint') {
-            //     steps {
-            //         sh "pylint-fail-under --fail_under 5.0  ${directory}/*.py "
-            //     }
-            // }
+            stage('Check Container running') {
+                steps {
+                    sshagent (credentials: ['cheryl-vm']) {
+                        sh "ssh -o StrictHostKeyChecking=no azureuser@acit3855-kafka.eastus.cloudapp.azure.com 'cd ~/lab8/deployment && \
+                            [ '$(docker-compose ps | grep ${repo})' ] && docker-compose stop ${repo} && docker container prune -f'"
+                    }
+                }
+            }
             stage('Python Lint') {
                 steps {
                     sh "pylint-fail-under --fail_under 5.0  *.py "
