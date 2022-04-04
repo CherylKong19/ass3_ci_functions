@@ -25,7 +25,8 @@ def call (repo) {
                 steps {
                     sshagent (credentials: ['cheryl-vm']) {
                         sh "ssh -o StrictHostKeyChecking=no azureuser@acit3855-kafka.eastus.cloudapp.azure.com 'cd ~/lab8/deployment && \
-                            docker-compose ps | grep ${repo} && docker-compose stop ${repo} && docker container prune -f || echo ${repo} not running'"
+                            (docker image inspect -f cherylk19/${repo}:latest || echo cherylk19/${repo}:latest not exist) && \
+                            docker-compose ps | grep ${repo} && docker-compose stop ${repo} || echo ${repo} not running'"
                     }
                 }
             }
