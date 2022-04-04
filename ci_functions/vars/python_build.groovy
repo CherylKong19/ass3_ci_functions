@@ -39,8 +39,10 @@ def call (repo) {
                 }
                 steps {
                     sshagent (credentials: ['cheryl-vm']) {
-                        sh "ssh -o StrictHostKeyChecking=no azureuser@acit3855-kafka.eastus.cloudapp.azure.com echo 'Success'"
-
+                        withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
+                            sh "ssh -o StrictHostKeyChecking=no azureuser@acit3855-kafka.eastus.cloudapp.azure.com docker login -u cherylk19 -p '$TOKEN' docker.io && \
+                                cd lab8/deployment && docker rmi cherylk19/${repo}:latest && docker pull cherylk19/${repo}:latest && docker-compose up -d"
+                        }
                     }
                 }
             }
