@@ -1,9 +1,9 @@
 def call (repo) {
     pipeline {
         agent any
-        parameters {
-        booleanParam(defaultValue: false, description:'Deploy the App', name: 'DEPLOY')
-        }
+//         parameters {
+//         booleanParam(defaultValue: false, description:'Deploy the App', name: 'DEPLOY')
+//         }
         stages {
             stage('Build') {
                 steps {
@@ -34,9 +34,9 @@ def call (repo) {
                 }
             }
             stage('Deploy') {
-                when {
-                    expression { params.DEPLOY }
-                }
+//                 when {
+//                     expression { params.DEPLOY }
+//                 }
                 steps {
                     sshagent (credentials: ['cheryl-vm']) {
                         withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
