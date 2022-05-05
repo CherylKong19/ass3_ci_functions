@@ -1,1 +1,1 @@
-# ass3_ci_functions
+# Jenkins Shared Library for vending machine application
